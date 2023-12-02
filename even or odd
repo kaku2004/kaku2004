@@ -1,0 +1,10 @@
+/* Check whether a number is even or odd */
+#include<stdio.h>
+int main()
+{
+int a;
+printf("Input an interger");
+scanf("%d",&a);
+printf("%s", a%2==0?"Even":"Odd");
+return 1;
+}
