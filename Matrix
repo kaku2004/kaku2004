@@ -1,0 +1,124 @@
+#include <stdio.h>
+struct mat
+{
+    int ar[10][10];
+    int r, c;
+};
+
+typedef struct mat Matrix;
+
+void read_matrix(Matrix *x)
+{
+    int i, j;
+    printf("Input dimension of the matrix: ");
+    scanf("%d %d", &x->r, &x->c);
+    printf("Input elements of the matrix: ");
+    for (i = 0; i < x->r; i++)
+        for (j = 0; j < x->c; j++)
+            scanf("%d", &x->ar[i][j]);
+}
+
+void print_matrix(Matrix *x)
+{
+    int i, j;
+    for (i = 0; i < x->r; i++)
+    {
+        for (j = 0; j < x->c; j++)
+            printf(" %d ", x->ar[i][j]);
+        printf("\n");
+    }
+}
+
+Matrix add_matrix(Matrix x, Matrix y) // Matrix addition
+{
+    Matrix result;
+    int i, j;
+    if (x.r != y.r || x.c != y.c)
+    {
+        result.r = result.c = 0;
+        return result;
+    }
+    else
+    {
+        result.r = x.r;
+        result.c = x.c;
+        for (i = 0; i < x.r; i++)
+            for (j = 0; j < x.c; j++)
+                result.ar[i][j] = x.ar[i][j] + y.ar[i][j];
+        return result;
+    }
+}
+
+Matrix sub_matrix(Matrix x, Matrix y) // Matrix subtraction
+{
+    Matrix result;
+    int i, j;
+    if (x.r != y.r || x.c != y.c)
+    {
+        result.r = result.c = 0;
+        return result;
+    }
+    else
+    {
+        result.r = x.r;
+        result.c = x.c;
+        for (i = 0; i < x.r; i++)
+            for (j = 0; j < x.c; j++)
+                result.ar[i][j] = x.ar[i][j] - y.ar[i][j];
+        return result;
+    }
+}
+
+Matrix mul_matrix(Matrix x, Matrix y) // Matrix multiplication
+{
+    Matrix result;
+    int i, j, k;
+    if (x.r != y.r || x.c != y.c)
+    {
+        result.r = result.c = 0;
+        return result;
+    }
+    else
+    {
+        result.r = x.r;
+        result.c = x.c;
+        for (i = 0; i < x.r; i++)
+        {
+            for (j = 0; j < x.c; j++)
+            {
+                result.ar[i][j] = 0;
+                for (k = 0; k < x.c; k++)
+                    result.ar[i][j] += x.ar[i][k] * y.ar[k][j];
+            }
+        }
+        return result;
+    }
+}
+
+
+Matrix trans_matrix(Matrix x) // Transpose of a matrix
+{
+    Matrix result;
+    int i, j;
+    result.r = x.r;
+    result.c = x.c;
+    for (i = 0; i < x.r; i++)
+        for (j = 0; j < x.c; j++)
+            result.ar[j][i] = x.ar[i][j];
+    return result;
+}
+
+int main()
+{
+    Matrix a, b, c;
+    int d;
+    // int n;
+    // printf("Input the multiplier: ");
+    // scanf("%d", &n);
+    read_matrix(&a);
+    // read_matrix(&b);
+    c = inverse_matrix(a);
+    printf("The resultant of the above matrix is: \n");
+    print_matrix(&c);
+    return 0;
+}
